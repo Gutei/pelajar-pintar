@@ -115,3 +115,5 @@ dmypy.json
 .pyre/
 
 settings_dash_dev
+
+.idea
