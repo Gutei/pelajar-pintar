@@ -190,3 +190,26 @@ class StudentRegistration(models.Model):
 
     class Meta:
         db_table = 'student_registrations'
+
+
+
+class SchoolToken(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    school = models.ForeignKey('School', null=True, blank=True, on_delete=models.CASCADE)
+    token = models.TextField(null=True, blank=True)
+    expired_date = models.DateTimeField(null=True, blank=True)
+    is_expired = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'school_tokens'
+
+class StudentRegistrationToken(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    token = models.TextField(null=True, blank=True)
+    expired_date = models.DateTimeField(null=True, blank=True)
+    is_expired = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'student_registration_tokens'
