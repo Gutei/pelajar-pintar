@@ -2,11 +2,45 @@ import uuid
 from django.db import models
 from django.utils import timezone
 
+from django.conf import settings
+
 # Create your models here.
 class School(models.Model):
+
+    TK = 0
+    PAUD = 1
+    SD = 2
+    MI = 3
+    SMP = 4
+    MTS = 5
+    SMA = 6
+    SMK = 7
+    MA = 8
+
+    LEVEL = (
+        (TK, 'TK'),
+        (PAUD, 'PAUD'),
+        (SD, 'SD'),
+        (MI, 'MI'),
+        (SMP, 'SMP'),
+        (MTS, 'MTs'),
+        (SMA, 'SMA'),
+        (SMK, 'SMK'),
+        (MA, 'MA'),
+    )
+
+    NEGERI = 0
+    SWASTA = 1
+
+    TYPE = (
+        (NEGERI, 'Negeri'),
+        (SWASTA, 'Swasta'),
+    )
+
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     school_number = models.CharField(max_length=256, null=True, blank=True)
     name = models.CharField(max_length=256, null=True, blank=True)
+    level = models.CharField(choices=LEVEL, max_length=8, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     logo = models.ImageField(upload_to='school/logo', null=True, blank=True)
     image = models.ImageField(upload_to='school/image', null=True, blank=True)
@@ -19,6 +53,20 @@ class School(models.Model):
 
     class Meta:
         db_table = 'schools'
+
+
+class AbstractSchool(models.Model):
+    # add additional fields in here
+    id              = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user            = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
+    school = models.ForeignKey('School', null=True, blank=True, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.id.hex
+
+    class Meta:
+        db_table = 'abstract_schools'
 
 
 class SchoolContact(models.Model):
