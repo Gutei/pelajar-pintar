@@ -2,7 +2,7 @@ import json
 from rest_framework import viewsets, status
 from api.serializers import (SchoolSerializer, SchoolContactSerializer, TeacherSerializer, SchoolActivitySerializer,
                              SchoolExtracurricularSerializer)
-from panel.models import (School, SchoolContact, Teacher, SchoolActivity, SchoolExtracurricular)
+from panel.models import (School, SchoolContact, Teacher, SchoolActivity, SchoolExtracurricular, Province, City)
 from rest_framework.response import Response
 
 from rest_framework.decorators import (api_view, authentication_classes,
@@ -14,6 +14,28 @@ from rest_framework.decorators import (api_view, authentication_classes,
 class SchoolViewSet(viewsets.ModelViewSet):
     queryset = School.objects.all()
     serializer_class = SchoolSerializer
+
+    @list_route(methods=['get', ])
+    def area(self, request):
+
+        if not request.query_params.get('city'):
+            if not request.query_params.get('province'):
+                school = School.objects.all()
+            else:
+                province = Province.objects.filter(code=request.query_params.get('province')).first()
+                school = School.objects.filter(province=province)
+        else:
+            city = City.objects.filter(code=request.query_params.get('city')).first()
+            school = School.objects.filter(city=city)
+
+        page = self.paginate_queryset(school)
+        if page is not None:
+            serializer = SchoolSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = SchoolSerializer(school, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @detail_route(methods=['get', ])
     def get_contacts(self, request, *args, **kwargs):
