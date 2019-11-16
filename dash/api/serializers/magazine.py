@@ -28,6 +28,19 @@ class AllMagazineSerializer(serializers.ModelSerializer):
         model = SchoolMagazine
         fields = '__all__'
 
+class AllSchoolMagazineSerializer(serializers.ModelSerializer):
+
+    activities = serializers.SerializerMethodField()
+
+    def get_activities(self, obj):
+        activities = SchoolMagazineActivity.objects.filter(magazine=obj)
+        serializer = MagazineActivitySerializer(activities, many=True)
+        return serializer.data
+
+
+    class Meta:
+        model = SchoolMagazine
+        fields = '__all__'
 
 class AllMagazineActivitySerializer(serializers.ModelSerializer):
 
