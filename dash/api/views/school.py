@@ -1,3 +1,4 @@
+import json
 from rest_framework import viewsets, status
 from api.serializers import (SchoolSerializer, SchoolContactSerializer, TeacherSerializer, SchoolActivitySerializer,
                              SchoolExtracurricularSerializer)
@@ -87,3 +88,25 @@ class SchoolViewSet(viewsets.ModelViewSet):
         serializer = TeacherSerializer(teacher, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @list_route(methods=['get', ])
+    def get_const(self, request, *args, **kwargs):
+        data = {
+            'levels': {
+                'TK': 0,
+                'PAUD': 1,
+                'SD': 2,
+                'MI': 3,
+                'SMP': 4,
+                'MTS': 5,
+                'SMA': 6,
+                'SMK': 7,
+                'MA': 8,
+            },
+            'types': {
+                'NEGERI':0,
+                'SWASTA':1
+            },
+        }
+
+        return Response(data, status=status.HTTP_200_OK)

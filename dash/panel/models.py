@@ -261,3 +261,32 @@ class StudentRegistrationToken(models.Model):
 
     class Meta:
         db_table = 'student_registration_tokens'
+
+
+class SchoolMagazine(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    school = models.ForeignKey('School', null=True, blank=True, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50, null=True, blank=True)
+    published_date = models.DateTimeField(auto_now_add=True)
+    is_published = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'school_magazines'
+
+
+class SchoolMagazineActivity(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    magazine = models.ForeignKey('SchoolMagazine', null=True, blank=True, on_delete=models.CASCADE)
+    activity = models.ForeignKey('SchoolActivity', null=True, blank=True, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'school_magazine_activities'
+
+
+class Province(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    code = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=50, null=True, blank=True)
+
+    class Meta:
+        db_table = 'province'
