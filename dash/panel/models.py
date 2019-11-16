@@ -40,10 +40,13 @@ class School(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     school_number = models.CharField(max_length=256, null=True, blank=True)
     name = models.CharField(max_length=256, null=True, blank=True)
-    level = models.CharField(choices=LEVEL, max_length=8, null=True, blank=True)
+    level = models.PositiveSmallIntegerField(choices=LEVEL, null=True, blank=True)
+    type = models.PositiveSmallIntegerField(choices=TYPE, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     logo = models.ImageField(upload_to='school/logo', null=True, blank=True)
     image = models.ImageField(upload_to='school/image', null=True, blank=True)
+    province = models.ForeignKey('Province',null=True, blank=True, on_delete=models.CASCADE)
+    city = models.ForeignKey('City', null=True, blank=True, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -261,3 +264,50 @@ class StudentRegistrationToken(models.Model):
 
     class Meta:
         db_table = 'student_registration_tokens'
+
+
+class SchoolMagazine(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    school = models.ForeignKey('School', null=True, blank=True, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50, null=True, blank=True)
+    published_date = models.DateTimeField(auto_now_add=True)
+    is_published = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'school_magazines'
+
+
+class SchoolMagazineActivity(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    magazine = models.ForeignKey('SchoolMagazine', null=True, blank=True, on_delete=models.CASCADE)
+    activity = models.ForeignKey('SchoolActivity', null=True, blank=True, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'school_magazine_activities'
+
+
+class Province(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    code = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        name = self.name
+        return "{}".format(name)
+
+    class Meta:
+        db_table = 'provinces'
+
+
+class City(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    province = models.ForeignKey('Province', null=True, blank=True, on_delete=models.CASCADE)
+    code = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        name = self.name
+        return "{}".format(name)
+
+    class Meta:
+        db_table = 'cities'
