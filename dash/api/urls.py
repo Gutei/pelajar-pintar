@@ -3,7 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url, include
 from rest_framework import routers
-from api.views import SchoolViewSet, TeacherViewSet, StudentRegistrationViewSet, MagazineViewSet
+from api.views import SchoolViewSet, TeacherViewSet, StudentRegistrationViewSet, MagazineViewSet, ProvinceViewSet
 
 from rest_framework_swagger.views import get_swagger_view
 
@@ -22,11 +22,15 @@ student_registration_router.register(r'', StudentRegistrationViewSet)
 magazine_router = routers.SimpleRouter(trailing_slash=False)
 magazine_router.register(r'', MagazineViewSet)
 
+area_router = routers.SimpleRouter(trailing_slash=False)
+area_router.register(r'', ProvinceViewSet)
+
 urlpatterns = [
     url(r'^$', schema_view),
     url(r'^schools/', include(school_router.urls)),
     url(r'^teachers/', include(teacher_router.urls)),
     url(r'^magazines/', include(magazine_router.urls)),
+    url(r'^province/', include(area_router.urls)),
     # url(r'^psb/', include(student_registration_router.urls)),
     url(r'^api-auth/', include('rest_framework.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

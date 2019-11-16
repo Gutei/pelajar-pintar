@@ -288,5 +288,23 @@ class Province(models.Model):
     code = models.CharField(max_length=50, null=True, blank=True)
     name = models.CharField(max_length=50, null=True, blank=True)
 
+    def __str__(self):
+        name = self.name
+        return "{}".format(name)
+
     class Meta:
-        db_table = 'province'
+        db_table = 'provinces'
+
+
+class City(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    province = models.ForeignKey('Province', null=True, blank=True, on_delete=models.CASCADE)
+    code = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        name = self.name
+        return "{}".format(name)
+
+    class Meta:
+        db_table = 'cities'
