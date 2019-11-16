@@ -37,6 +37,23 @@ class SchoolViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @list_route(methods=['get', ])
+    def search_nms(self, request):
+
+        if not request.query_params.get('name'):
+            school = School.objects.all()
+        else:
+            school = School.objects.filter(name__contains=request.query_params.get('name'))
+
+        page = self.paginate_queryset(school)
+        if page is not None:
+            serializer = SchoolSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = SchoolSerializer(school, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     @detail_route(methods=['get', ])
     def get_contacts(self, request, *args, **kwargs):
 
