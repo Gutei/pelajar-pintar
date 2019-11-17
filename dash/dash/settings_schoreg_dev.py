@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rangefilter',
     'ckeditor',
     'ckeditor_uploader',
-    "crispy_forms",
     'schoreg',
     'panel',
 ]
@@ -133,5 +132,3 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 EMAIL_HOST_USER = "exdroot@gmail.com"
 EMAIL_HOST_PASSWORD = "1lik3y0ur4s$"
 # <----
-
-CRISPY_TEMPLATE_PACK = "bootstrap4"

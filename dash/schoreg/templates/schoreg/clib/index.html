@@ -27,32 +27,41 @@
     <div class="container">
             <center><h1 style="padding-top:20px;">School Form Registration</h1></center>
         <hr>
-            <form method="POST" id="signup-form" class="signup-form" action="#" enctype="multipart/form-data">
+            <form method="POST" id="signup-form" class="signup-form" action="#" enctype="multipart/form-data">{% csrf_token %}
+               {% if form.errors %}
+                 <ul>
+                   {% for key,value in form.errors.items %}
+                     <li>{{ key|escape }} : {{ value|escape }}</li>
+                   {% endfor %}
+                 </ul>
+                {% endif %}
                 <div class="row">
                     <div class="col-md-4">
                         <div style="padding:25px" id="form1">
                             <div class="card-header"><h3>Profile</h3></div>
                             <div class="card-body">
                                 <label>NPSN</label>
-                                <input type="number" class="form-control"><br>
+                                <input name="school_number" type="number" class="form-control"><br>
                                 <label>Name</label>
-                                <input type="text" class="form-control"><br>
+                                <input name="name"  type="text" class="form-control"><br>
                                 <label>Type</label>
-                                <select class="form-control select2">
+                                <select class="form-control select2" name="type">
+                                    <option value="">---</option>
                                     {% for t in type %}
                                     <option value="{{t.0}}">{{t.1}}</option>
                                     {% endfor %}
                                 </select><br>
                                 <label>Level</label>
-                                <select class="form-control select2">
+                                <select class="form-control select2" name="level">
+                                    <option value="">---</option>
                                     {% for l in level %}
                                     <option value="{{l.0}}">{{l.1}}</option>
                                     {% endfor %}
                                 </select><br>
                                 <label>Logo</label>
-                                <input type="file" class="form-control"><br>
+                                <input type="file" class="form-control" name="logo"><br>
                                 <label>Image</label>
-                                <input type="file" class="form-control"><br>
+                                <input type="file" class="form-control" name="image"><br>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -62,20 +71,20 @@
                             <div class="card-header"><h3>Contacts</h3></div>
                             <div class="card-body">
                                 <label>Phone</label>
-                                <input type="text" class="form-control"><br>
+                                <input type="text" class="form-control" name="phone"><br>
                                 <label>Email</label>
-                                <input type="text" class="form-control"><br>
+                                <input type="text" class="form-control" name="email"><br>
                                 <label>Address</label>
-                                <textarea class="form-control"></textarea><br>
+                                <textarea name="address" class="form-control"></textarea><br>
                                 <label>Province</label>
-                                <select class="form-control select2">
+                                <select name="province" class="form-control select2">
                                     <option value="">---</option>
                                     {% for p in province %}
                                     <option value="{{p.id}}">{{p.name}}</option>
                                     {% endfor %}
                                 </select><br>
                                 <label>City</label>
-                                <select class="form-control select2">
+                                <select name="city" class="form-control select2">
                                     <option value="">---</option>
                                     {% for c in city %}
                                     <option value="{{c.id}}">{{c.name}}</option>
