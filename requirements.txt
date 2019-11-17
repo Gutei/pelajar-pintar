@@ -30,3 +30,4 @@ graphene-django
 exponent_server_sdk
 gunicorn
 django-crispy-forms
+django_select2

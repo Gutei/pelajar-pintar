@@ -1,8 +1,9 @@
 import json
 from rest_framework import viewsets, status
 from api.serializers import (SchoolSerializer, SchoolContactSerializer, TeacherSerializer, SchoolActivitySerializer,
-                             SchoolExtracurricularSerializer)
-from panel.models import (School, SchoolContact, Teacher, SchoolActivity, SchoolExtracurricular, Province, City)
+                             SchoolExtracurricularSerializer, AllSchoolMagazineSerializer)
+from panel.models import (School, SchoolContact, Teacher, SchoolActivity, SchoolExtracurricular, Province, City,
+                          SchoolMagazine)
 from rest_framework.response import Response
 
 from rest_framework.decorators import (api_view, authentication_classes,
@@ -101,6 +102,19 @@ class SchoolViewSet(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
 
         serializer = SchoolExtracurricularSerializer(extracurricular, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @detail_route(methods=['get', ])
+    def get_magazine(self, request, *args, **kwargs):
+        magazine = SchoolMagazine.objects.filter(school=kwargs.get('pk'))
+
+        page = self.paginate_queryset(magazine)
+        if page is not None:
+            serializer = AllSchoolMagazineSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = AllSchoolMagazineSerializer(magazine, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
