@@ -6,7 +6,7 @@
 <!--	{{ form|crispy }}-->
 <!--	<button type="submit" class="btn btn-success">Register</button>-->
 <!--    </form>-->
-	<div class="page-content">
+	<div class="page-content" style="visibility:hidden">
 		<div class="form-v1-content">
 			<div class="wizard-form">
 		        <form class="form-register" method="POST">{% csrf_token %}
@@ -34,7 +34,7 @@
 									<div class="form-holder">
 										<fieldset>
 											<legend>School Number</legend>
-											<input type="text" class="form-control" id="npsn" name="npsn" placeholder="NPSN" required>
+											<input type="text" class="form-control" id="school_number" name="school_number" placeholder="NPSN" required>
 										</fieldset>
 									</div>
 									<div class="form-holder">
@@ -75,7 +75,7 @@
 									<div class="form-holder form-holder-2">
 										<fieldset>
 											<legend>School Email</legend>
-											<input type="text" name="school_email" id="school_email" class="form-control" pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="example@email.com" required>
+											<input type="text" name="email" id="email" class="form-control" pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="example@email.com" required>
 										</fieldset>
 									</div>
 								</div>
@@ -83,10 +83,11 @@
 									<div class="form-holder form-holder-2">
 										<fieldset>
 											<legend>Phone Number</legend>
-											<input type="text" class="form-control" id="school_phone" name="school_phone" placeholder="+1 888-999-7777" required>
+											<input type="text" class="form-control" id="phone" name="phone" placeholder="+1 888-999-7777" required>
 										</fieldset>
 									</div>
 								</div>
+							</div>
 							</div>
 			            </section>
 			            <!-- SECTION 3 -->
@@ -105,6 +106,7 @@
 			    						{{ form|crispy }}
 			                		</div>
 			                	</div>
+								<input type="submit">
 							</div>
 			            </section>
 		        	</div>
@@ -116,6 +118,8 @@
 
 {% block additional_scripts %}
 <script type="text/javascript">
+$('.page-content').hide()
+$('.form-register').hide()
 $(document).ready(function () {
   var navListItems = $('div.setup-panel div a'),
           allWells = $('.setup-content'),
@@ -166,6 +170,9 @@ $(document).ready(function () {
   });
 
   $('div.setup-panel div a.btn-primary').trigger('click');
+	$('.page-content').show()
+	$('.form-register').show()
+  $('.page-content').css('visibility','visible')
 });
 </script>
 {% endblock additional_scripts %}
