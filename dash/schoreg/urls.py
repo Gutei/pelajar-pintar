@@ -23,6 +23,6 @@ urlpatterns = [
                   url(r'^jet/', include('jet.urls', 'jet')),
                   url(r'^ckeditor/', include('ckeditor_uploader.urls')),
                   url(r'^b4ck0ff1c3/', admin.site.urls),
-                  url(r'', views.register, name='school-register'),
+                  url(r'', views., name='school-register'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

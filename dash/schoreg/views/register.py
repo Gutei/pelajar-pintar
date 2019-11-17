@@ -70,13 +70,13 @@ class schoreg(CreateView):
         return obj
 
 
-def register(request):
-    if request.method == "POST":
-        form = UserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Form submission successful')
-    else:
-        form = UserForm()
-
-    return render(request, "schoreg/register.html", {"form": form})
+# def register(request):
+#     if request.method == "POST":
+#         form = UserForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, 'Form submission successful')
+#     else:
+#         form = UserForm()
+#
+#     return render(request, "schoreg/register.html", {"form": form})
