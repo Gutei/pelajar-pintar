@@ -20,9 +20,7 @@ class CustomAdminSite(admin.AdminSite):
 
 
 urlpatterns = [
-                  url(r'^jet/', include('jet.urls', 'jet')),
-                  url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-                  url(r'^b4ck0ff1c3/', admin.site.urls),
+                  url(r'^select2/', include('django_select2.urls')),
                   url(r'', views.register, name='school-register'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
