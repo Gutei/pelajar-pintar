@@ -1,4 +1,4 @@
-django==2.1.7
+django~=2.2.7
 django-suit
 sorl-thumbnail
 Pillow
@@ -29,3 +29,4 @@ django-redis
 graphene-django
 exponent_server_sdk
 gunicorn
+django-crispy-forms
