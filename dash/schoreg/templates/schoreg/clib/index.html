@@ -1,11 +1,11 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="author" content="colorlib.com">
+	<meta name="author" content="colorlib.com">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign Up Form</title>
 
@@ -16,24 +16,15 @@
 
 {{ form.media.css }}
     <link rel="stylesheet" href="{% static 'schoreg/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
-<!--    <link rel="stylesheet" href="{% static 'schoreg/vendor/nouislider/nouislider.min.css' %}">-->
 
     <!-- Main css -->
     <link rel="stylesheet" href="{% static 'schoreg/css/style.css' %}">
 </head>
-
 <body>
 
     <div class="container">
             <center><h1 style="padding-top:20px;">School Form Registration</h1></center>
         <hr>
-        {% if form.errors %}
-         <ul>
-           {% for key,value in form.errors.items %}
-             <li>{{ key|escape }} : {{ value|escape }}</li>
-           {% endfor %}
-         </ul><hr>
-        {% endif %}
 
         {% if messages %}
         <div class="alert alert-warning" role="alert">
@@ -44,9 +35,15 @@
         </ul>
         </div>
         {% endif %}
+        {% if form.errors %}
+         <ul>
+           {% for key,value in form.errors.items %}
+             <li>{{ key|escape }} : {{ value|escape }}</li>
+           {% endfor %}
+         </ul><hr>
+        {% endif %}
 
-
-            <form method="POST" id="signup-form" class="signup-form" action="#" enctype="multipart/form-data">{% csrf_token %}
+        <form method="POST" id="signup-form" class="signup-form" action="#" enctype="multipart/form-data">{% csrf_token %}
                 <div class="row">
                     <div class="col-md-4">
                         <div style="padding:25px" id="form1">
@@ -118,27 +115,20 @@
                               <input type="submit" class="btn btn-success">
                 </div>
             </form>
-        </div>
+    </div>
 
     <!-- JS -->
     <script src="{% static 'schoreg/vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'schoreg/select2.full.min.js' %}"></script>
     <script src="{% static 'schoreg/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
     <script src="{% static 'schoreg/vendor/jquery-validation/dist/additional-methods.min.js' %}"></script>
-<!--    <script src="{% static 'schoreg/vendor/jquery-steps/jquery.steps.min.js' %}"></script>-->
     <script src="{% static 'schoreg/vendor/minimalist-picker/dobpicker.js' %}"></script>
     {{ form.media.js }}
-<!--    <script src="{% static 'schoreg/vendor/nouislider/nouislider.min.js' %}"></script>-->
-<!--    <script src="{% static 'schoreg/vendor/wnumb/wNumb.js' %}"></script>-->
-<!--    <script src="{% static 'schoreg/js/main.js' %}"></script>-->
 
     <script>
         $(document).ready(() => {
         $('.select2').select2()
-
-
         })
     </script>
 </body>
-
 </html>

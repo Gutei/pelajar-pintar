@@ -57,6 +57,7 @@ def register(request):
                 try:
                     sch.save()
                 except Exception as e:
+                    form.delete()
                     messages.error(request, e)
                     return redirect(reverse('school-register'))
 
@@ -72,7 +73,10 @@ def register(request):
                 try:
                     cont.save()
                 except Exception as e:
+                    sch.delete()
+                    form.delete()
                     messages.error(request, e)
+                    return redirect(reverse('school-register'))
 
                 reg_2 = form.save().pk
                 usr = User.objects.filter(id=reg_2).first()
@@ -84,9 +88,13 @@ def register(request):
                 try:
                     abst.save()
                 except Exception as e:
+                    form.delete()
+                    sch.delete()
+                    cont.delete()
                     messages.error(request, e)
 
-        except:
+        except Exception as e:
+            print(e)
             messages.error(request, 'Form submission Failed')
             return redirect(reverse('school-register'))
 
