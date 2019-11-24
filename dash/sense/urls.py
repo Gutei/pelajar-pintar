@@ -18,6 +18,6 @@ class CustomAdminSite(admin.AdminSite):
 
 urlpatterns = [
                   url(r'^select2/', include('django_select2.urls')),
-                  url(r'', views.register, name='school-register'),
+                  url(r'', views.sense, name='sense'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
