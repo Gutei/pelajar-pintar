@@ -13,7 +13,6 @@ from panel.models import SchoolMajor
 class SchoolMajorListView(ListView):
     model = SchoolMajor
     context_object_name = "all"
-
     template_name = 'sense/lte/school-majors/sm-view.html'
 
     def get_context_data(self, **kwargs):
