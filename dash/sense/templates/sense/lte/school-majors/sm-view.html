@@ -1,10 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'sense/lte/index.html' %}
+{% load static %}
+{% block title %} School Majors {% endblock %}
+{% block content %}
 
-</body>
-</html>
+<div class="wrapper">
+
+    <section class="content">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">DataTable with default features</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Major</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>major name</td>
+                    <td class="pl-0 pr-0" style="font-style: normal;">
+                      <center>
+                        <a href="#" class="action btn b-action btn-sm"><i class="far fa-edit"></i>
+                        </a>
+                        <a href="#" class="action btn b-action btn-sm"><i class="far fa-trash-alt"></i>
+                        </a>
+                      </center>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>Major</th>
+                  <th>Actions</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+    });
+  });
+</script>
+{% endblock script %}
