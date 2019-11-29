@@ -4,9 +4,9 @@ from django.utils import timezone
 
 from django.conf import settings
 
+
 # Create your models here.
 class School(models.Model):
-
     TK = 0
     PAUD = 1
     SD = 2
@@ -45,7 +45,7 @@ class School(models.Model):
     address = models.TextField(null=True, blank=True)
     logo = models.ImageField(upload_to='school/logo', null=True, blank=True)
     image = models.ImageField(upload_to='school/image', null=True, blank=True)
-    province = models.ForeignKey('Province',null=True, blank=True, on_delete=models.CASCADE)
+    province = models.ForeignKey('Province', null=True, blank=True, on_delete=models.CASCADE)
     city = models.ForeignKey('City', null=True, blank=True, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -60,8 +60,8 @@ class School(models.Model):
 
 class AbstractSchool(models.Model):
     # add additional fields in here
-    id              = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user            = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     school = models.ForeignKey('School', null=True, blank=True, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -94,6 +94,7 @@ class SchoolMajor(models.Model):
 
     class Meta:
         db_table = 'school_majors'
+
 
 class SchoolExtracurricular(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
@@ -145,6 +146,7 @@ class SchoolAchievement(models.Model):
     class Meta:
         db_table = 'school_achievements'
 
+
 class SchoolActivity(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     school = models.ForeignKey('School', null=True, blank=True, on_delete=models.CASCADE)
@@ -160,21 +162,20 @@ class SchoolActivity(models.Model):
 
 
 class StudentRegistration(models.Model):
-
-    MALE    = 0
-    FEMALE  = 1
+    MALE = 0
+    FEMALE = 1
 
     GENDERS = (
         (MALE, 'Laki-laki'),
         (FEMALE, 'Perempuan'),
     )
 
-    ISLAM   = 0
+    ISLAM = 0
     KRISTEN = 1
     KATOLIK = 2
-    BUDHA   = 3
-    HINDU   = 4
-    OTHERS  = 5
+    BUDHA = 3
+    HINDU = 4
+    OTHERS = 5
 
     FAITHS = (
         (ISLAM, 'Islam'),
@@ -225,7 +226,7 @@ class StudentRegistration(models.Model):
     national_exam_number = models.CharField(max_length=128, null=True, blank=True)
     graduation_year = models.CharField(max_length=4, null=True, blank=True)
     skhun_number = models.CharField(max_length=128, null=True, blank=True)
-    average_national_exam_scores = models.DecimalField(max_digits=11, decimal_places=2, default=0,)
+    average_national_exam_scores = models.DecimalField(max_digits=11, decimal_places=2, default=0, )
     parent_name = models.CharField(max_length=128, null=True, blank=True)
     mother_name = models.CharField(max_length=128, null=True, blank=True)
     number_of_siblings = models.PositiveIntegerField(default=0)
@@ -243,7 +244,6 @@ class StudentRegistration(models.Model):
         db_table = 'student_registrations'
 
 
-
 class SchoolToken(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     school = models.ForeignKey('School', null=True, blank=True, on_delete=models.CASCADE)
@@ -254,6 +254,7 @@ class SchoolToken(models.Model):
 
     class Meta:
         db_table = 'school_tokens'
+
 
 class StudentRegistrationToken(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
