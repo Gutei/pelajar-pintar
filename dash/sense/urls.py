@@ -30,6 +30,10 @@ urlpatterns = [
                   url(r'^sense-se-edit/(?P<pk>[^/]+)/$', views.ExtracurricularUpdate.as_view(), name='sex_edit'),
                   url(r'^sense-se-delete/(?P<pk>[^/]+)/$', views.ExtracurricularDelete.as_view(), name='sex_delete'),
 
-                  url(r'^sense-se-view/$', views.ExtracurricularList.as_view(), name='sex_view'),
+                  url(r'^sense-sac-view/$', views.ActivityList.as_view(), name='sac_view'),
+                  url(r'^sense-sac-add/$', views.ActivityCreate.as_view(), name='sac_add'),
+                  url(r'^sense-sac-edit/(?P<pk>[^/]+)/$', views.ActivityUpdate.as_view(), name='sac_edit'),
+                  url(r'^sense-sac-delete/(?P<pk>[^/]+)/$', views.ActivityDelete.as_view(), name='sac_delete'),
+
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

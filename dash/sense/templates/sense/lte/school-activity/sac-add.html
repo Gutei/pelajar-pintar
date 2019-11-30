@@ -1,0 +1,118 @@
+{% extends 'sense/lte/index.html' %}
+{% load static %}
+{% block title %} Add School Activitys {% endblock %}
+
+{% block url %}
+<li class="nav-item"><a class="nav-link" href="{% url 'sm_view' %}">Activity View</a></li>
+<li class="nav-item"><a class="nav-link active" href="{% url 'sm_add' %}">Activity Add</a></li>
+{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+        <form role="form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Data Description</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                      <i class="fas fa-minus"></i></button>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="inputTitle">Activity Title</label>
+                    <input type="text" name="title" id="inputTitle" class="form-control" value="{{details.title}}">
+                  </div>
+                  <div class="mb-3">
+                      <label for="inputDescription">Activity Description</label>
+                    <textarea class="textarea" placeholder="Place some text here" name="description" id="inputDescription"
+                              style="width: 100%; height: 200px; font-size: 14px; line-height: 25px; border: 1px solid #dddddd; padding: 10px;">
+                    {{details.description}}
+                    </textarea>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-6">
+              <div class="card card-secondary">
+                <div class="card-header">
+                  <h3 class="card-title">Activity Image</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                      <i class="fas fa-minus"></i></button>
+                  </div>
+                </div>
+                <div class="card-body">
+                <div class="form-group">
+                     <div class="card">
+                         <div class="card-header pt-4 pb-0">
+                             <label class="mb-1">Activity Image</label>
+                         </div>
+                         <div class="card-body text-center">
+                               <div class="card" id="image-preview1-card" style="display: initial;">
+                                    {% if details.image %}
+                                      <img class="img-thumbnail"
+                                           src="{% get_media_prefix %}{{ details.image }}"id="image-preview1"
+                                           alt="image preview1" style="max-width:50%">
+                                    {% else %}
+                                      <img class="img-thumbnail"
+                                           src="{% static 'sense/dist/img/default-150x150.png' %}"id="image-preview1"
+                                           alt="image preview1" style="max-width:50%">
+                                    {% endif %}
+
+                               </div>
+                            </div>
+                         <hr>
+                         <div class="form-group text-center">
+                               <label for="image-source1" class="btn bg-red btn-sm" style="padding: 6px 12px;">
+                                   Upload Activity Image
+                               </label>
+                               <input hidden type="file" name="image" id="image-source1" onchange="previewImage1();" class="form-control"/><br>
+                         </div>
+                     </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="padding:2em;">
+            <div class="col-12">
+              <a href="{% url 'sac_view' %}" class="btn btn-secondary">Cancel</a>
+                {% if details.image %}
+                    <input type="submit" value="Save Activity" class="btn btn-success">
+                {% else %}
+                    <input type="submit" value="Create new Activity" class="btn btn-success">
+                {% endif %}
+            </div>
+          </div>
+        </form>
+    </section>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+   function previewImage1() {
+      document.getElementById("image-preview1").style.display = "initial";
+      document.getElementById("image-preview1-card").style.display = "initial";
+      var oFReader1 = new FileReader();
+      oFReader1.readAsDataURL(document.getElementById("image-source1").files[0]);
+      oFReader1.onload = function (oFREvent) {
+         document.getElementById("image-preview1").src = oFREvent.target.result;
+      };
+   };
+
+  $(function () {
+    // Summernote
+    $('.textarea').summernote()
+  });
+</script>
+{% endblock script %}
