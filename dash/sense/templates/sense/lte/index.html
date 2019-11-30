@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  {% include 'sense/lte/_includes/head.html' %}
+
+  {% block extra_css %}  {% endblock %}
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+  {% include 'sense/lte/_includes/navbar.html' %}
+
+  {% include 'sense/lte/_includes/sidebar.html' %}
+
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">{% block title %} {% endblock %}</h1>
+          </div>
+
+          <div class="col-sm-6">
+              <ul class="nav nav-pills float-sm-right">
+                  {% block url %} {% endblock %}
+              </ul>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+  </div>
+
+    {# {% include 'sense/lte/_includes/footer.html' %} #}
+
+    {% include 'sense/lte/_includes/control-bar.html' %}
+
+</div>
+
+    {% include 'sense/lte/_includes/script-js.html' %}
+
+    {% block script %}
+    {% endblock %}
+
+</body>
+
+</html>

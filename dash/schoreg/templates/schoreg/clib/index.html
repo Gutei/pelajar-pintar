@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="colorlib.com">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'schoreg/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'schoreg/select2-bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+{{ form.media.css }}
+    <link rel="stylesheet" href="{% static 'schoreg/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'schoreg/css/style.css' %}">
+</head>
+<body>
+
+    <div class="container">
+            <center><h1 style="padding-top:20px;">School Form Registration</h1></center>
+        <hr>
+
+        {% if messages %}
+        <div class="alert alert-warning" role="alert">
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{ message }}</li>
+            {% endfor %}
+        </ul>
+        </div>
+        {% endif %}
+        {% if form.errors %}
+         <ul>
+           {% for key,value in form.errors.items %}
+             <li>{{ key|escape }} : {{ value|escape }}</li>
+           {% endfor %}
+         </ul><hr>
+        {% endif %}
+
+        <form method="POST" id="signup-form" class="signup-form" action="#" enctype="multipart/form-data">{% csrf_token %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <div style="padding:25px" id="form1">
+                            <div class="card-header"><h3>Profile</h3></div>
+                            <div class="card-body">
+                                <label>NPSN</label>
+                                <input name="school_number" type="number" class="form-control"><br>
+                                <label>Name</label>
+                                <input name="name"  type="text" class="form-control"><br>
+                                <label>Type</label>
+                                <select class="form-control select2" name="type">
+                                    <option value="">---</option>
+                                    {% for t in type %}
+                                    <option value="{{t.0}}">{{t.1}}</option>
+                                    {% endfor %}
+                                </select><br>
+                                <label>Level</label>
+                                <select class="form-control select2" name="level">
+                                    <option value="">---</option>
+                                    {% for l in level %}
+                                    <option value="{{l.0}}">{{l.1}}</option>
+                                    {% endfor %}
+                                </select><br>
+                                <label>Logo</label>
+                                <input type="file" class="form-control" name="logo"><br>
+                                <label>Image</label>
+                                <input type="file" class="form-control" name="image"><br>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="padding:25px" id="form2">
+                            <div class="card-header"><h3>Contacts</h3></div>
+                            <div class="card-body">
+                                <label>Phone</label>
+                                <input type="text" class="form-control" name="phone"><br>
+                                <label>Email</label>
+                                <input type="text" class="form-control" name="email"><br>
+                                <label>Address</label>
+                                <textarea name="address" class="form-control"></textarea><br>
+                                <label>Province</label>
+                                <select name="province" class="form-control select2">
+                                    <option value="">---</option>
+                                    {% for p in province %}
+                                    <option value="{{p.id}}">{{p.name}}</option>
+                                    {% endfor %}
+                                </select><br>
+                                <label>City</label>
+                                <select name="city" class="form-control select2">
+                                    <option value="">---</option>
+                                    {% for c in city %}
+                                    <option value="{{c.id}}">{{c.name}}</option>
+                                    {% endfor %}
+                                </select><br>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="padding:25px" id="form3">
+                            <div class="card-header"><h3>User</h3></div>
+                            <div class="card-body">
+                              {{user_form.as_p}}
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                              <input type="submit" class="btn btn-success">
+                </div>
+            </form>
+    </div>
+
+    <!-- JS -->
+    <script src="{% static 'schoreg/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'schoreg/select2.full.min.js' %}"></script>
+    <script src="{% static 'schoreg/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'schoreg/vendor/jquery-validation/dist/additional-methods.min.js' %}"></script>
+    <script src="{% static 'schoreg/vendor/minimalist-picker/dobpicker.js' %}"></script>
+    {{ form.media.js }}
+
+    <script>
+        $(document).ready(() => {
+        $('.select2').select2()
+        })
+    </script>
+</body>
+</html>

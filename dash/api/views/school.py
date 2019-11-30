@@ -1,7 +1,9 @@
+import json
 from rest_framework import viewsets, status
 from api.serializers import (SchoolSerializer, SchoolContactSerializer, TeacherSerializer, SchoolActivitySerializer,
-                             SchoolExtracurricularSerializer)
-from panel.models import (School, SchoolContact, Teacher, SchoolActivity, SchoolExtracurricular)
+                             SchoolExtracurricularSerializer, AllSchoolMagazineSerializer)
+from panel.models import (School, SchoolContact, Teacher, SchoolActivity, SchoolExtracurricular, Province, City,
+                          SchoolMagazine)
 from rest_framework.response import Response
 
 from rest_framework.decorators import (api_view, authentication_classes,
@@ -13,6 +15,45 @@ from rest_framework.decorators import (api_view, authentication_classes,
 class SchoolViewSet(viewsets.ModelViewSet):
     queryset = School.objects.all()
     serializer_class = SchoolSerializer
+
+    @list_route(methods=['get', ])
+    def area(self, request):
+
+        if not request.query_params.get('city'):
+            if not request.query_params.get('province'):
+                school = School.objects.all()
+            else:
+                province = Province.objects.filter(code=request.query_params.get('province')).first()
+                school = School.objects.filter(province=province)
+        else:
+            city = City.objects.filter(code=request.query_params.get('city')).first()
+            school = School.objects.filter(city=city)
+
+        page = self.paginate_queryset(school)
+        if page is not None:
+            serializer = SchoolSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = SchoolSerializer(school, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @list_route(methods=['get', ])
+    def search_nms(self, request):
+
+        if not request.query_params.get('name'):
+            school = School.objects.all()
+        else:
+            school = School.objects.filter(name__contains=request.query_params.get('name'))
+
+        page = self.paginate_queryset(school)
+        if page is not None:
+            serializer = SchoolSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = SchoolSerializer(school, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @detail_route(methods=['get', ])
     def get_contacts(self, request, *args, **kwargs):
@@ -64,6 +105,19 @@ class SchoolViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @detail_route(methods=['get', ])
+    def get_magazine(self, request, *args, **kwargs):
+        magazine = SchoolMagazine.objects.filter(school=kwargs.get('pk'))
+
+        page = self.paginate_queryset(magazine)
+        if page is not None:
+            serializer = AllSchoolMagazineSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = AllSchoolMagazineSerializer(magazine, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     @detail_route(methods=['post', ])
     def add_teacher(self, request, *args, **kwargs):
         school = School.objects.get(id=kwargs.get('pk'))
@@ -87,3 +141,25 @@ class SchoolViewSet(viewsets.ModelViewSet):
         serializer = TeacherSerializer(teacher, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @list_route(methods=['get', ])
+    def get_const(self, request, *args, **kwargs):
+        data = {
+            'levels': {
+                'TK': 0,
+                'PAUD': 1,
+                'SD': 2,
+                'MI': 3,
+                'SMP': 4,
+                'MTS': 5,
+                'SMA': 6,
+                'SMK': 7,
+                'MA': 8,
+            },
+            'types': {
+                'NEGERI':0,
+                'SWASTA':1
+            },
+        }
+
+        return Response(data, status=status.HTTP_200_OK)

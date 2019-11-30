@@ -1,5 +1,6 @@
 from django.contrib import admin
-from panel.models import School, SchoolContact, SchoolMajor, SchoolExtracurricular, SchoolAchievement, SchoolActivity
+from panel.models import (School, SchoolContact, SchoolMajor, SchoolExtracurricular, SchoolAchievement,
+                          SchoolActivity, AbstractSchool)
 
 
 class SchoolContactInline(admin.TabularInline):
@@ -21,6 +22,10 @@ class SchoolAdmin(admin.ModelAdmin):
         SchoolContactInline,
         SchoolMajorInline,
     ]
+
+@admin.register(AbstractSchool, site=admin.site)
+class AbstractSchoolAdmin(admin.ModelAdmin):
+    list_display = ('user', 'school', 'created')
 
 @admin.register(SchoolExtracurricular, site=admin.site)
 class SchoolExtracurricularAdmin(admin.ModelAdmin):

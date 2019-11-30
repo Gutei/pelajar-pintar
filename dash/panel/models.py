@@ -2,14 +2,51 @@ import uuid
 from django.db import models
 from django.utils import timezone
 
+from django.conf import settings
+
+
 # Create your models here.
 class School(models.Model):
+    TK = 0
+    PAUD = 1
+    SD = 2
+    MI = 3
+    SMP = 4
+    MTS = 5
+    SMA = 6
+    SMK = 7
+    MA = 8
+
+    LEVEL = (
+        (TK, 'TK'),
+        (PAUD, 'PAUD'),
+        (SD, 'SD'),
+        (MI, 'MI'),
+        (SMP, 'SMP'),
+        (MTS, 'MTs'),
+        (SMA, 'SMA'),
+        (SMK, 'SMK'),
+        (MA, 'MA'),
+    )
+
+    NEGERI = 0
+    SWASTA = 1
+
+    TYPE = (
+        (NEGERI, 'Negeri'),
+        (SWASTA, 'Swasta'),
+    )
+
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     school_number = models.CharField(max_length=256, null=True, blank=True)
     name = models.CharField(max_length=256, null=True, blank=True)
+    level = models.PositiveSmallIntegerField(choices=LEVEL, null=True, blank=True)
+    type = models.PositiveSmallIntegerField(choices=TYPE, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     logo = models.ImageField(upload_to='school/logo', null=True, blank=True)
     image = models.ImageField(upload_to='school/image', null=True, blank=True)
+    province = models.ForeignKey('Province', null=True, blank=True, on_delete=models.CASCADE)
+    city = models.ForeignKey('City', null=True, blank=True, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -19,6 +56,20 @@ class School(models.Model):
 
     class Meta:
         db_table = 'schools'
+
+
+class AbstractSchool(models.Model):
+    # add additional fields in here
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    school = models.ForeignKey('School', null=True, blank=True, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.id.hex
+
+    class Meta:
+        db_table = 'abstract_schools'
 
 
 class SchoolContact(models.Model):
@@ -43,6 +94,7 @@ class SchoolMajor(models.Model):
 
     class Meta:
         db_table = 'school_majors'
+
 
 class SchoolExtracurricular(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
@@ -94,6 +146,7 @@ class SchoolAchievement(models.Model):
     class Meta:
         db_table = 'school_achievements'
 
+
 class SchoolActivity(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     school = models.ForeignKey('School', null=True, blank=True, on_delete=models.CASCADE)
@@ -109,21 +162,20 @@ class SchoolActivity(models.Model):
 
 
 class StudentRegistration(models.Model):
-
-    MALE    = 0
-    FEMALE  = 1
+    MALE = 0
+    FEMALE = 1
 
     GENDERS = (
         (MALE, 'Laki-laki'),
         (FEMALE, 'Perempuan'),
     )
 
-    ISLAM   = 0
+    ISLAM = 0
     KRISTEN = 1
     KATOLIK = 2
-    BUDHA   = 3
-    HINDU   = 4
-    OTHERS  = 5
+    BUDHA = 3
+    HINDU = 4
+    OTHERS = 5
 
     FAITHS = (
         (ISLAM, 'Islam'),
@@ -174,7 +226,7 @@ class StudentRegistration(models.Model):
     national_exam_number = models.CharField(max_length=128, null=True, blank=True)
     graduation_year = models.CharField(max_length=4, null=True, blank=True)
     skhun_number = models.CharField(max_length=128, null=True, blank=True)
-    average_national_exam_scores = models.DecimalField(max_digits=11, decimal_places=2, default=0,)
+    average_national_exam_scores = models.DecimalField(max_digits=11, decimal_places=2, default=0, )
     parent_name = models.CharField(max_length=128, null=True, blank=True)
     mother_name = models.CharField(max_length=128, null=True, blank=True)
     number_of_siblings = models.PositiveIntegerField(default=0)
@@ -192,7 +244,6 @@ class StudentRegistration(models.Model):
         db_table = 'student_registrations'
 
 
-
 class SchoolToken(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     school = models.ForeignKey('School', null=True, blank=True, on_delete=models.CASCADE)
@@ -204,6 +255,7 @@ class SchoolToken(models.Model):
     class Meta:
         db_table = 'school_tokens'
 
+
 class StudentRegistrationToken(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     token = models.TextField(null=True, blank=True)
@@ -213,3 +265,50 @@ class StudentRegistrationToken(models.Model):
 
     class Meta:
         db_table = 'student_registration_tokens'
+
+
+class SchoolMagazine(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    school = models.ForeignKey('School', null=True, blank=True, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50, null=True, blank=True)
+    published_date = models.DateTimeField(auto_now_add=True)
+    is_published = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'school_magazines'
+
+
+class SchoolMagazineActivity(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    magazine = models.ForeignKey('SchoolMagazine', null=True, blank=True, on_delete=models.CASCADE)
+    activity = models.ForeignKey('SchoolActivity', null=True, blank=True, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'school_magazine_activities'
+
+
+class Province(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    code = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        name = self.name
+        return "{}".format(name)
+
+    class Meta:
+        db_table = 'provinces'
+
+
+class City(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    province = models.ForeignKey('Province', null=True, blank=True, on_delete=models.CASCADE)
+    code = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        name = self.name
+        return "{}".format(name)
+
+    class Meta:
+        db_table = 'cities'
