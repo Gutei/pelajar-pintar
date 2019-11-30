@@ -35,5 +35,10 @@ urlpatterns = [
                   url(r'^sense-sac-edit/(?P<pk>[^/]+)/$', views.ActivityUpdate.as_view(), name='sac_edit'),
                   url(r'^sense-sac-delete/(?P<pk>[^/]+)/$', views.ActivityDelete.as_view(), name='sac_delete'),
 
+                  url(r'^sense-sachiev-view/$', views.AchievementList.as_view(), name='sachiev_view'),
+                  url(r'^sense-sachiev-add/$', views.AchievementCreate.as_view(), name='sachiev_add'),
+                  url(r'^sense-sachiev-edit/(?P<pk>[^/]+)/$', views.AchievementUpdate.as_view(), name='sachiev_edit'),
+                  url(r'^sense-sachiev-delete/(?P<pk>[^/]+)/$', views.AchievementDelete.as_view(), name='sachiev_delete'),
+
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
