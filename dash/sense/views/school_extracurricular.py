@@ -48,24 +48,24 @@ class ExtracurricularCreate(CreateView):
         return reverse('sex_view')
 
 
-# class MajorUpdate(UpdateView):
-#     model = SchoolMajor
-#     fields = ['name', 'image']
-#     template_name = 'sense/lte/school-majors/sm-add.html'
-#     context_object_name = "details"
-#
-#     def get_context_data(self, *args, **kwargs):
-#         context = super(MajorUpdate, self).get_context_data(*args, **kwargs)
-#         return context
-#
-#     def form_valid(self, form):
-#         self.object.save()
-#         return super(MajorUpdate, self).form_valid(form)
-#
-#     def get_success_url(self):
-#         return reverse('sm_view')
-#
-#
+class ExtracurricularUpdate(UpdateView):
+    model = SchoolExtracurricular
+    fields = ['name', 'description', 'image']
+    template_name = 'sense/lte/school-extracurricular/sex-add.html'
+    context_object_name = "details"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExtracurricularUpdate, self).get_context_data(*args, **kwargs)
+        return context
+
+    def form_valid(self, form):
+        self.object.save()
+        return super(ExtracurricularUpdate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('sex_view')
+
+
 class ExtracurricularDelete(DeleteView):
     model = SchoolExtracurricular
     success_url = reverse_lazy('sex_view')

@@ -27,7 +27,7 @@ urlpatterns = [
 
                   url(r'^sense-se-view/$', views.ExtracurricularList.as_view(), name='sex_view'),
                   url(r'^sense-se-add/$', views.ExtracurricularCreate.as_view(), name='sex_add'),
-                  # url(r'^sense-se-edit/(?P<pk>[^/]+)/$', views.MajorUpdate.as_view(), name='sm_edit'),
-                  url(r'^sense-se-delete/(?P<pk>[^/]+)/$', views.MajorDelete.as_view(), name='sex_delete'),
+                  url(r'^sense-se-edit/(?P<pk>[^/]+)/$', views.ExtracurricularUpdate.as_view(), name='sex_edit'),
+                  url(r'^sense-se-delete/(?P<pk>[^/]+)/$', views.ExtracurricularDelete.as_view(), name='sex_delete'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

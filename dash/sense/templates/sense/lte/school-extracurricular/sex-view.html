@@ -3,8 +3,8 @@
 {% block title %} School Majors {% endblock %}
 
 {% block url %}
-<li class="nav-item"><a class="nav-link active" href="{% url 'sex_view' %}">Major View</a></li>
-<li class="nav-item"><a class="nav-link" href="{% url 'sex_add' %}">Major Add</a></li>
+<li class="nav-item"><a class="nav-link active" href="{% url 'sex_view' %}">Extracurricular View</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'sex_add' %}">Extracurricular Add</a></li>
 {% endblock %}
 
 {% block content %}
@@ -26,7 +26,7 @@
                   <tr>
                     <td>{{ extra.name }}</td>
                       <td class="project-actions text-center">
-                          <a class="btn btn-info btn-sm" href="{% url 'sm_edit' pk=extra.id %}">
+                          <a class="btn btn-info btn-sm" href="{% url 'sex_edit' pk=extra.id %}">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
