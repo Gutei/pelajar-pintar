@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.conf.urls import url, include
 from sense import views
 
-app_name = 'sense register'
+app_name = 'School Sense'
 
 admin.autodiscover()
 
@@ -18,6 +18,10 @@ class CustomAdminSite(admin.AdminSite):
 
 urlpatterns = [
                   url(r'^select2/', include('django_select2.urls')),
-                  url(r'', views.sense, name='sense'),
+                  url(r'^$', views.school_sense, name='school_sense'),
+                  url(r'^sense-sm-view/$', views.MajorList.as_view(), name='sm_view'),
+                  url(r'^sense-sm-add/$', views.MajorCreate.as_view(), name='sm_add'),
+                  url(r'^sense-sm-edit/(?P<pk>[^/]+)/$', views.MajorUpdate.as_view(), name='sm_edit'),
+                  url(r'^sense-sm-delete/(?P<pk>[^/]+)/$', views.MajorDelete.as_view(), name='sm_delete'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

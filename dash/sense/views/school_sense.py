@@ -4,5 +4,5 @@ from django.urls import reverse
 from django.contrib import messages
 
 
-def register(request):
-    return render(request, 'sense/lte/sense/sense.html')
+def school_sense(request):
+    return render(request, 'sense/lte/school_sense/school_sense.html')
