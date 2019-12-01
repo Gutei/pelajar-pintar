@@ -1,0 +1,66 @@
+{% extends 'sense/lte/index.html' %}
+{% load static %}
+{% block title %} School Activitys {% endblock %}
+
+{% block url %}
+<li class="nav-item"><a class="nav-link active" href="{% url 'steach_view' %}">Teacher View</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'steach_add' %}">Teacher Add</a></li>
+{% endblock %}
+
+{% block content %}
+<section class="content">
+        <div class="col-12">
+          <br>
+          <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Teacher</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for Teacher in Teachers %}
+                  <tr>
+                    <td>{{ Teacher.name }}</td>
+                      <td class="project-actions text-center">
+                          <a class="btn btn-info btn-sm" href="{% url 'steach_edit' pk=Teacher.id %}">
+                              <i class="fas fa-pencil-alt">
+                              </i>
+                              Edit
+                          </a>
+                          <a class="btn btn-danger btn-sm" href="{% url 'steach_delete' pk=Teacher.id %}">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                          </a>
+                      </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+    </section>
+{% endblock %}
+
+{% block script %}
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+    });
+  });
+</script>
+{% endblock script %}

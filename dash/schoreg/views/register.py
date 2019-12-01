@@ -50,6 +50,7 @@ def register(request):
                 sch.type = request.POST.get('type')
                 sch.address = request.POST.get('address')
                 sch.logo = request.POST.get('logo')
+                print(request.POST.get('logo'))
                 sch.image = request.POST.get('image')
                 sch.province = prov
                 sch.city = cit

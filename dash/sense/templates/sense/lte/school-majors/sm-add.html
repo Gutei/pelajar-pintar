@@ -1,6 +1,12 @@
 {% extends 'sense/lte/index.html' %}
 {% load static %}
-{% block title %} Add School Majors {% endblock %}
+{% block title %}
+{% if details.image %}
+Edit School Majors
+{% else %}
+Add School Majors
+{% endif %}
+{% endblock %}
 
 {% block url %}
 <li class="nav-item"><a class="nav-link" href="{% url 'sm_view' %}">Major View</a></li>
@@ -44,9 +50,6 @@
                 <div class="card-body">
                 <div class="form-group">
                      <div class="card">
-                         <div class="card-header pt-4 pb-0">
-                             <label class="mb-1">Major Image</label>
-                         </div>
                          <div class="card-body text-center">
                                <div class="card" id="image-preview1-card" style="display: initial;">
                                     {% if details.image %}
@@ -55,7 +58,7 @@
                                            alt="image preview1" style="max-width:50%">
                                     {% else %}
                                       <img class="img-thumbnail"
-                                           src="{% static 'sense/dist/img/default-150x150.png' %}"id="image-preview1"
+                                           src="{% static 'sense/ltedist/img/default-150x150.png' %}"id="image-preview1"
                                            alt="image preview1" style="max-width:50%">
                                     {% endif %}
 
