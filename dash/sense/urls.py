@@ -40,5 +40,10 @@ urlpatterns = [
                   url(r'^sense-sachiev-edit/(?P<pk>[^/]+)/$', views.AchievementUpdate.as_view(), name='sachiev_edit'),
                   url(r'^sense-sachiev-delete/(?P<pk>[^/]+)/$', views.AchievementDelete.as_view(), name='sachiev_delete'),
 
+                  url(r'^sense-steach-view/$', views.TeacherList.as_view(), name='steach_view'),
+                  url(r'^sense-steach-add/$', views.TheacherCreate.as_view(), name='steach_add'),
+                  url(r'^sense-steach-edit/(?P<pk>[^/]+)/$', views.TeacherUpdate.as_view(), name='steach_edit'),
+                  url(r'^sense-steach-delete/(?P<pk>[^/]+)/$', views.TeacherDelete.as_view(), name='steach_delete'),
+
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
