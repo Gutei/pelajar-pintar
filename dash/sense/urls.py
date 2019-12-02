@@ -20,10 +20,12 @@ class CustomAdminSite(admin.AdminSite):
 urlpatterns = [
                   url(r'^select2/', include('django_select2.urls')),
                   url(r'^admin/', admin.site.urls),
-                  url(r'^login/$', LoginView.as_view(template_name='sense/login/login.html'), name="login"),
+
+                  url(r'^login/$', LoginView.as_view(template_name='sense/access/login.html'), name="login"),
+                  url(r'^logout/$', LogoutView.as_view(template_name='sense/access/logout.html'), name='logout'),
+
                   url(r'^$', views.school_sense, name='school_sense'),
 
-                  # url(r'^logout/$', LogoutView.as_view(template_name='gdashboard/logout.html'), name='logout'),
 
                   url(r'^sense-sm-view/$', views.MajorList.as_view(), name='sm_view'),
                   url(r'^sense-sm-add/$', views.MajorCreate.as_view(), name='sm_add'),

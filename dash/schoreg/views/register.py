@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.db import transaction
 from schoreg.forms import UserForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from panel.models import School, AbstractSchool, SchoolContact, Province, City
 
 
@@ -29,7 +29,11 @@ def register(request):
             with transaction.atomic():
                 if form.is_valid():
                     try:
-                        form.save()
+                        post = form.save(commit=False)
+                        post.is_staff = True
+                        group = Group.objects.get(name='Schools')
+                        post.save()
+                        post.groups.add(group)
                     except Exception as e:
                         messages.info(request, e)
                         return redirect(reverse('school-register'))
