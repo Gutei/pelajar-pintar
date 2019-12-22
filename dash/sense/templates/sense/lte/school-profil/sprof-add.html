@@ -1,0 +1,229 @@
+{% extends 'sense/lte/index.html' %}
+{% load static %}
+{% block title %}
+School Profil
+{% endblock %}
+
+{% block url %}
+{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+        <form role="form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Data Description</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                      <i class="fas fa-minus"></i></button>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="inputName">Teacher Name</label>
+                    <input type="text" name="name" id="inputName" class="form-control" value="{{details.name}}">
+                  </div>
+                  <div class="mb-3">
+                      <label for="inputAddress">Teacher Address</label>
+                    <textarea class="textarea" placeholder="Place some text here" name="address" id="inputAddress"
+                              style="width: 100%; height: 200px; font-size: 14px; line-height: 25px; border: 1px solid #dddddd; padding: 10px;">
+                    {{details.address}}
+                    </textarea>
+                  </div>
+
+                </div>
+              </div>
+              <div class="card card-secondary">
+                <div class="card-header">
+                  <h3 class="card-title">School Contact</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                      <i class="fas fa-minus"></i></button>
+                  </div>
+                </div>
+                <div class="card-body">
+                    <div id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <input type="hidden" id="old_detail_form" name="old_detail_form" value="{{ total_contact }}">
+                        <input type="hidden" id="new_detail_form" name="new_detail_form" value="0">
+                        <table class="table table-responsive-lg" id="myTable" style="background-color:transparent">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody class="detail_forms">
+                                {% for contact in contacts %}
+                                <tr>
+                                    <td><input class="form-control" type="text" name="old-form-email-{{ contact.id }}"
+                                            value="{{ contact.email }}"></td>
+                                    <td><input class="form-control" type="text" name="old-form-phone-{{ contact.id }}"
+                                            value="{{ contact.phone }}"></td>
+                                    <td>
+                                        <input type="checkbox" name="old-form-delete-{{ contact.id }}"
+                                            id="old-form-delete-{{ contact.id }}">
+                                        <label class='vCheckboxLabel' for="old-form-delete-{{ contact.id }}"></label>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <a class="add_new_detail btn bg-red btn-sm" style="color:white;">
+                            <i
+                                    class="fas fa-plus">
+
+                            </i> Add New Contact
+                            </a>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-6">
+              <div class="card card-secondary">
+                <div class="card-header">
+                  <h3 class="card-title">School Logo</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                      <i class="fas fa-minus"></i></button>
+                  </div>
+                </div>
+                <div class="card-body">
+                <div class="form-group">
+                     <div class="card">
+                         <div class="card-body text-center">
+                               <div class="card" id="image-preview1-card" style="display: initial;">
+                                    {% if details.logo %}
+                                      <img class="img-thumbnail"
+                                           src="{% get_media_prefix %}{{ details.photo}}"id="image-preview1"
+                                           alt="image preview1" style="max-width:50%">
+                                    {% else %}
+                                      <img class="img-thumbnail"
+                                           src="{% static 'sense/ltedist/img/default-150x150.png' %}"id="image-preview1"
+                                           alt="image preview1" style="max-width:50%">
+                                    {% endif %}
+                               </div>
+                            </div>
+                         <hr>
+                         <div class="form-group text-center">
+                               <label for="image-source1" class="btn bg-red btn-sm" style="padding: 6px 12px;">
+                                   Change Logo
+                               </label>
+                               <input hidden type="file" name="logo" id="image-source1" onchange="previewImage1();" class="form-control"/><br>
+                         </div>
+                     </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              </div>
+              <div class="card card-secondary">
+                <div class="card-header">
+                  <h3 class="card-title">School Image</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                      <i class="fas fa-minus"></i></button>
+                  </div>
+                </div>
+                <div class="card-body">
+                <div class="form-group">
+                     <div class="card">
+                         <div class="card-body text-center">
+                               <div class="card" id="image-preview2-card" style="display: initial;">
+                                    {% if details.image %}
+                                      <img class="img-thumbnail"
+                                           src="{% get_media_prefix %}{{ details.photo}}"id="image-preview2"
+                                           alt="image preview2" style="max-width:50%">
+                                    {% else %}
+                                      <img class="img-thumbnail"
+                                           src="{% static 'sense/ltedist/img/default-150x150.png' %}"id="image-preview2"
+                                           alt="image preview2" style="max-width:50%">
+                                    {% endif %}
+                               </div>
+                            </div>
+                         <hr>
+                         <div class="form-group text-center">
+                               <label for="image-source2" class="btn bg-red btn-sm" style="padding: 6px 12px;">
+                                   Change Image
+                               </label>
+                               <input hidden type="file" name="image" id="image-source2" onchange="previewImage2();" class="form-control"/><br>
+                         </div>
+                     </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="row" style="padding:2em;">
+            <div class="col-12">
+              <a href="{% url 'steach_view' %}" class="btn btn-secondary">Cancel</a>
+                {% if details.photo %}
+                    <input type="submit" value="Save Teacher" class="btn btn-success">
+                {% else %}
+                    <input type="submit" value="Create new Teacher" class="btn btn-success">
+                {% endif %}
+            </div>
+
+          </div>
+        </form>
+    </section>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+   function previewImage1() {
+      document.getElementById("image-preview1").style.display = "initial";
+      document.getElementById("image-preview1-card").style.display = "initial";
+      var oFReader1 = new FileReader();
+      oFReader1.readAsDataURL(document.getElementById("image-source1").files[0]);
+      oFReader1.onload = function (oFREvent) {
+         document.getElementById("image-preview1").src = oFREvent.target.result;
+      };
+   };
+
+      function previewImage2() {
+      document.getElementById("image-preview2").style.display = "initial";
+      document.getElementById("image-preview2-card").style.display = "initial";
+      var oFReader2 = new FileReader();
+      oFReader2.readAsDataURL(document.getElementById("image-source2").files[0]);
+      oFReader2.onload = function (oFREvent) {
+         document.getElementById("image-preview2").src = oFREvent.target.result;
+      };
+   };
+
+   //for contact
+   var newForm = $('#new_detail_form').val();
+
+   $(document).ready(() => {
+      $('.add_new_detail').click(() => {
+         var text1 = "<tr>";
+         var text2 = "<td><input type='text' class='form-control' placeholder='Email' name='email_new_" + newForm + "'> </td>";
+         var text3 = "<td><input type='text' class='form-control' placeholder='Nomor Telpon' name='phone_new_" + newForm + "'> </td>";
+         var text6 = "<td><a class='remove btn bg-red btn-sm' style='color:white;'' onclick='deleteRow(this)'>Delete</a></td>";
+         var text7 = "</tr>";
+         $('.detail_forms').append(text1 + text2 + text3 + text6 + text7);
+         newForm = Number(newForm) + 1;
+         $('#new_detail_form').val(newForm);
+      });
+   });
+
+   function deleteRow(r) {
+      var i = r.parentNode.parentNode.rowIndex;
+      newForm = Number(newForm) - 1;
+      $('#new_detail_form').val(newForm);
+      document.getElementById("myTable").deleteRow(i);
+   };
+</script>
+{% endblock script %}

@@ -24,6 +24,7 @@ urlpatterns = [
                   url(r'^logout/$', LogoutView.as_view(template_name='sense/access/logout.html'), name='logout'),
 
                   url(r'^$', views.school_sense, name='school_sense'),
+                  url(r'^sense-school-profil/$', views.SchoolProfil.as_view(), name='sprof'),
 
                   url(r'^sense-sm-view/$', views.MajorList.as_view(), name='sm_view'),
                   url(r'^sense-sm-add/$', views.MajorCreate.as_view(), name='sm_add'),

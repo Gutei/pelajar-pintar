@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from panel.services import format_number
-from panel.models import School, Teacher, TeacherContact
+from panel.models import School, Teacher, TeacherContact, AbstractSchool
 
 
 class TeacherList(ListView):
@@ -18,7 +18,8 @@ class TeacherList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(TeacherList, self).get_context_data(**kwargs)
-        school = School.objects.filter(school_number=1234567).first()
+        abstract = AbstractSchool.objects.filter(user=self.request.user).first()
+        school = School.objects.filter(school_number=abstract.school.school_number).first()
         context['Teachers'] = Teacher.objects.filter(school=school)
         return context
 
@@ -30,13 +31,14 @@ class TheacherCreate(CreateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(TheacherCreate, self).get_context_data(*args, **kwargs)
-        # data['group'] = MsUser.objects.filter(user=self.request.user).first()
         return context
 
     @transaction.atomic
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.school = School.objects.filter(school_number=1234567).first()
+        abstract = AbstractSchool.objects.filter(user=self.request.user).first()
+        school = School.objects.filter(school_number=abstract.school.school_number).first()
+        self.object.school = school
 
         total_new_form = self.request.POST['new_detail_form']
         if int(total_new_form) > 0:
