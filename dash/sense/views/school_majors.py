@@ -8,7 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from panel.models import School, SchoolMajor
+from panel.models import School, SchoolMajor, AbstractSchool
 
 
 class MajorList(ListView):
@@ -17,7 +17,8 @@ class MajorList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(MajorList, self).get_context_data(**kwargs)
-        school = School.objects.filter(school_number=1234567).first()
+        abstract = AbstractSchool.objects.filter(user=self.request.user).first()
+        school = School.objects.filter(school_number=abstract.school.school_number).first()
         context['majors'] = SchoolMajor.objects.filter(school=school)
         return context
 
@@ -29,13 +30,14 @@ class MajorCreate(CreateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(MajorCreate, self).get_context_data(*args, **kwargs)
-        # data['group'] = MsUser.objects.filter(user=self.request.user).first()
         return context
 
     @transaction.atomic
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.school = School.objects.filter(school_number=1234567).first()
+        abstract = AbstractSchool.objects.filter(user=self.request.user).first()
+        school = School.objects.filter(school_number=abstract.school.school_number).first()
+        self.object.school = school
         try:
             with transaction.atomic():
                 self.object.save()
