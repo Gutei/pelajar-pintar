@@ -117,3 +117,6 @@ dmypy.json
 settings_dash_dev
 
 .idea/
+
+#media
+media/
