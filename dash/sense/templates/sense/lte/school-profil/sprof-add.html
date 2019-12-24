@@ -1,7 +1,7 @@
 {% extends 'sense/lte/index.html' %}
 {% load static %}
 {% block title %}
-School Profil
+Profil Sekolah
 {% endblock %}
 
 {% block url %}
@@ -16,7 +16,7 @@ School Profil
             <div class="col-md-6">
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Data Description</h3>
+                  <h3 class="card-title">Deskripsi Sekolah</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                       <i class="fas fa-minus"></i></button>
@@ -25,11 +25,11 @@ School Profil
 
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="inputName">Teacher Name</label>
+                    <label for="inputName">Nama Sekolah</label>
                     <input type="text" name="name" id="inputName" class="form-control" value="{{details.name}}">
                   </div>
                   <div class="mb-3">
-                      <label for="inputAddress">Teacher Address</label>
+                      <label for="inputAddress">Alamat Sekolah</label>
                     <textarea class="textarea" placeholder="Place some text here" name="address" id="inputAddress"
                               style="width: 100%; height: 200px; font-size: 14px; line-height: 25px; border: 1px solid #dddddd; padding: 10px;">
                     {{details.address}}
@@ -38,9 +38,9 @@ School Profil
 
                 </div>
               </div>
-              <div class="card card-secondary">
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">School Contact</h3>
+                  <h3 class="card-title">Kontak Sekolah</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                       <i class="fas fa-minus"></i></button>
@@ -54,8 +54,8 @@ School Profil
                             <thead>
                                 <tr>
                                     <th>Email</th>
-                                    <th>Phone Number</th>
-                                    <th>Delete</th>
+                                    <th>Nomor Telepon</th>
+                                    <th>Hapus</th>
                                 </tr>
                             </thead>
                             <tbody class="detail_forms">
@@ -79,7 +79,7 @@ School Profil
                             <i
                                     class="fas fa-plus">
 
-                            </i> Add New Contact
+                            </i> Tambah Kontak Sekolah
                             </a>
                         </div>
                         <br>
@@ -89,9 +89,9 @@ School Profil
 
             </div>
             <div class="col-md-6">
-              <div class="card card-secondary">
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">School Logo</h3>
+                  <h3 class="card-title">Logo Sekolah</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                       <i class="fas fa-minus"></i></button>
@@ -116,7 +116,7 @@ School Profil
                          <hr>
                          <div class="form-group text-center">
                                <label for="image-source1" class="btn bg-red btn-sm" style="padding: 6px 12px;">
-                                   Change Logo
+                                   Ubah Foto Sekolah
                                </label>
                                <input hidden type="file" name="logo" id="image-source1" onchange="previewImage1();" class="form-control"/><br>
                          </div>
@@ -125,9 +125,9 @@ School Profil
                 <!-- /.card-body -->
               </div>
               </div>
-              <div class="card card-secondary">
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">School Image</h3>
+                  <h3 class="card-title">Foto Sekolah</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                       <i class="fas fa-minus"></i></button>
@@ -152,7 +152,7 @@ School Profil
                          <hr>
                          <div class="form-group text-center">
                                <label for="image-source2" class="btn bg-red btn-sm" style="padding: 6px 12px;">
-                                   Change Image
+                                   Ubah Foto Sekolah
                                </label>
                                <input hidden type="file" name="image" id="image-source2" onchange="previewImage2();" class="form-control"/><br>
                          </div>
@@ -168,12 +168,8 @@ School Profil
 
           <div class="row" style="padding:2em;">
             <div class="col-12">
-              <a href="{% url 'steach_view' %}" class="btn btn-secondary">Cancel</a>
-                {% if details.photo %}
-                    <input type="submit" value="Save Teacher" class="btn btn-success">
-                {% else %}
-                    <input type="submit" value="Create new Teacher" class="btn btn-success">
-                {% endif %}
+              <a href="{% url 'steach_view' %}" class="btn btn-secondary">Batalkan</a>
+                    <input type="submit" value="Simpan Perubahan" class="btn btn-success">
             </div>
 
           </div>

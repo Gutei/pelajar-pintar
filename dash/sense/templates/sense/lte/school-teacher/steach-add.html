@@ -35,9 +35,9 @@ Tambah Guru Sekolah
                     <input type="text" name="name" id="inputName" class="form-control" value="{{details.name}}">
                   </div>
                   <div class="mb-3">
-                      <label for="inputAddress">Alamat Gurus</label>
+                      <label for="inputAddress">Alamat Guru</label>
                     <textarea class="textarea" name="address" id="inputAddress"
-                              style="width: 100%; height: 200px; font-size: 14px; line-height: 25px; border: 1px solid #dddddd; padding: 10px;">
+                              style="width: 100%; height: 200px; line-height: 25px; border: 1px solid #dddddd;">
                     {{details.address}}
                     </textarea>
                   </div>
@@ -107,7 +107,7 @@ Tambah Guru Sekolah
                             <tbody class="detail_forms">
                                 {% for contact in contacts %}
                                 <tr>
-                                    <td><input class="form-control" type="text" name="old-form-email-{{ contact.id }}"
+                                    <td><input class="form-control" type="email" name="old-form-email-{{ contact.id }}"
                                             value="{{ contact.email }}"></td>
                                     <td><input class="form-control" type="text" name="old-form-phone-{{ contact.id }}"
                                             value="{{ contact.phone }}"></td>

@@ -1,10 +1,10 @@
 {% extends 'sense/lte/index.html' %}
 {% load static %}
-{% block title %} School Activitys {% endblock %}
+{% block title %} Aktifitas Sekolah {% endblock %}
 
 {% block url %}
-<li class="nav-item"><a class="nav-link active" href="{% url 'sac_view' %}">Activity View</a></li>
-<li class="nav-item"><a class="nav-link" href="{% url 'sac_add' %}">Activity Add</a></li>
+<li class="nav-item"><a class="nav-link active" href="{% url 'sac_view' %}">Daftar Aktifitas</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'sac_add' %}">Tambah Aktifitas</a></li>
 {% endblock %}
 
 {% block content %}
@@ -17,8 +17,8 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Activity</th>
-                  <th>Actions</th>
+                  <th>Aktifitas</th>
+                  <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,7 +34,7 @@
                           <a class="btn btn-danger btn-sm" href="{% url 'sac_delete' pk=Activity.id %}">
                               <i class="fas fa-trash">
                               </i>
-                              Delete
+                              Hapus
                           </a>
                       </td>
                   </tr>
