@@ -47,6 +47,8 @@ class School(models.Model):
     image = models.ImageField(upload_to='school/image', null=True, blank=True)
     province = models.ForeignKey('Province', null=True, blank=True, on_delete=models.CASCADE)
     city = models.ForeignKey('City', null=True, blank=True, on_delete=models.CASCADE)
+    lat = models.CharField(max_length=256, null=True, blank=True)
+    lng = models.CharField(max_length=256, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -217,7 +219,7 @@ class StudentRegistration(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     from_school = models.CharField(max_length=128, null=True, blank=True)
     to_school = models.ForeignKey('School', null=True, blank=True, on_delete=models.CASCADE)
-    registration_number = models.PositiveIntegerField(null=True, blank=True)
+    registration_number = models.CharField(max_length=128, null=True, blank=True)
     periode = models.CharField(max_length=128, null=True, blank=True)
     registration_year = models.CharField(max_length=4, null=True, blank=True)
     registration_month = models.CharField(choices=MONTHS, max_length=32, null=True, blank=True)
@@ -239,6 +241,8 @@ class StudentRegistration(models.Model):
     email = models.EmailField(null=True, blank=True)
     image_student = models.ImageField(upload_to='registration/student', null=True, blank=True)
     image_skhun = models.ImageField(upload_to='registration/skhun', null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'student_registrations'
