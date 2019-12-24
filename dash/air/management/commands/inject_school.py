@@ -4,43 +4,46 @@ from panel.models import City, School, Province
 
 
 class Command(BaseCommand):
+    def add_arguments(self, parser):
+        """
+        Positional arguments
+        jenjang = sd, smp, sma, smk
+
+        """
+        parser.add_argument('jenjang', nargs='+', type=str)
 
     def handle(self, *args, **options):
 
         kab = City.objects.all()
-        jenjang = ['sd', 'smp', 'sma', 'smk']
-        # print(data[1]['kode_wilayah'])
-        # print(dir(c.json()))
-        # for d in c.json().get('data'):
-        #
+        jenjang = options.get('jenjang')
 
-        for j in jenjang:
-            for k in kab:
-                print(k.code)
-                print(j)
-                c = requests.get('http://jendela.data.kemdikbud.go.id/api/index.php/Csekolah/detailSekolahGET?mst_kode_wilayah={}&bentuk={}'.format(k.code, j))
-                data = c.json().get('data')
+        for k in kab:
+            c = requests.get('http://jendela.data.kemdikbud.go.id/api/index.php/Csekolah/detailSekolahGET?mst_kode_wilayah={}&bentuk={}'.format(k.code, jenjang[0]))
+            data = c.json().get('data')
 
             for d in data:
-                prov = Province.objects.filter(code=d['kode_prop']).first()
-                city = City.objects.filter(code=d['kode_kab_kota']).first()
-                TYPE = 0 if d['status'] == 'N' else TYPE = 1
-                if j == 'sd':
+                prov_code = d['kode_prop'].strip()
+                city_code = d['kode_kab_kota'].strip()
+                prov = Province.objects.filter(code=prov_code).first()
+                city = City.objects.filter(code=city_code).first()
+
+                if jenjang[0] == 'sd':
                     lvl = 2
-                elif j == 'smp':
+                elif jenjang[0] == 'smp':
                     lvl = 4
-                elif j == 'sma':
+                elif jenjang[0] == 'sma':
                     lvl = 6
                 else:
                     lvl = 7
+
                 sch = School(school_number=d['npsn'],
                              name=d['sekolah'],
-                             type=TYPE,
+                             type=0 if d['status'] == "N" else 1,
                              level=lvl,
                              province=prov,
                              city=city,
                              address=d['alamat_jalan'] + ' ' + d['kecamatan'],
-                             lat=d[''],
-                             lng=d[''],
+                             lat=d['lintang'],  # garis lintang
+                             lng=d['bujur'],  # bujur
                              )
                 sch.save()

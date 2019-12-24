@@ -19,5 +19,6 @@ class Command(BaseCommand):
         # for d in c.json().get('data'):
         #
         for d in data:
-            prov = Province(code=d['kode_wilayah'], name=d['nama'])
+            kd = d['kode_wilayah'].strip()
+            prov = Province(code=kd, name=d['nama'])
             prov.save()
