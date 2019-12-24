@@ -1,10 +1,10 @@
 {% extends 'sense/lte/index.html' %}
 {% load static %}
-{% block title %} School Extracurricular {% endblock %}
+{% block title %} Ektrakurikuler Sekolah {% endblock %}
 
 {% block url %}
-<li class="nav-item"><a class="nav-link active" href="{% url 'sex_view' %}">Extracurricular View</a></li>
-<li class="nav-item"><a class="nav-link" href="{% url 'sex_add' %}">Extracurricular Add</a></li>
+<li class="nav-item"><a class="nav-link active" href="{% url 'sex_view' %}">Daftar Ekstrakurilkuler</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'sex_add' %}">Tambah EkstraKurikuler</a></li>
 {% endblock %}
 
 {% block content %}
@@ -34,7 +34,7 @@
                           <a class="btn btn-danger btn-sm" href="{% url 'sex_delete' pk=extra.id %}">
                               <i class="fas fa-trash">
                               </i>
-                              Delete
+                              Hapus
                           </a>
                       </td>
                   </tr>

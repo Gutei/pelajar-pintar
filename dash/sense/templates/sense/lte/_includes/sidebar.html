@@ -1,6 +1,6 @@
 {% load static %}
 {% block sidebar %}
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar elevation-4">
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -12,6 +12,7 @@
           <a href="#" class="d-block">Shiina Sora</a>
         </div>
       </div>
+      <hr>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -22,7 +23,7 @@
             <a href="#" class="nav-link">
               <i class="fas fa-school"></i>
               <p style="margin-left:0.5em;">
-                Sense School
+                Sekolah
                 <i class="fas fa-angle-left right"></i>
                 <span class="badge badge-info right"></span>
               </p>
@@ -31,36 +32,36 @@
               <li class="nav-item">
                 <a href="{% url 'sm_view' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>School Majors</p>
+                  <p>Jurusan Sekolah</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{% url 'sex_view' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>School Extracurricular</p>
+                  <p>Ekstrakurikuler Sekolah</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-header">School Teacher</li>
+          <li class="nav-header">Pengajar Sekolah</li>
           <li class="nav-item">
             <a href="{% url 'steach_view' %}" class="nav-link">
               <i class="fas fa-chalkboard-teacher"></i>
-              <p style="margin-left:0.5em;">Teacher</p>
+              <p style="margin-left:0.5em;">Guru</p>
             </a>
           </li>
 
-          <li class="nav-header">School Magazine</li>
+          <li class="nav-header">Majalah Sekolah</li>
           <li class="nav-item">
             <a href="{% url 'sac_view' %}" class="nav-link">
               <i class="far fa-newspaper"></i>
-              <p style="margin-left:0.5em;">Activity</p>
+              <p style="margin-left:0.5em;">Aktifitas</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{% url 'sachiev_view' %}" class="nav-link">
               <i class="fas fa-star-half-alt"></i>
-              <p style="margin-left:0.5em;">Achievement</p>
+              <p style="margin-left:0.5em;">Prestasi</p>
             </a>
           </li>
         </ul>

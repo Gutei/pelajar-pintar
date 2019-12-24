@@ -1,10 +1,10 @@
 {% extends 'sense/lte/index.html' %}
 {% load static %}
-{% block title %} School Activitys {% endblock %}
+{% block title %} Guru Sekolah {% endblock %}
 
 {% block url %}
-<li class="nav-item"><a class="nav-link active" href="{% url 'steach_view' %}">Teacher View</a></li>
-<li class="nav-item"><a class="nav-link" href="{% url 'steach_add' %}">Teacher Add</a></li>
+<li class="nav-item"><a class="nav-link active" href="{% url 'steach_view' %}">Daftar Guru</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'steach_add' %}">Tambah Guru</a></li>
 {% endblock %}
 
 {% block content %}
@@ -17,8 +17,8 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Teacher</th>
-                  <th>Actions</th>
+                  <th>Guru</th>
+                  <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,7 +34,7 @@
                           <a class="btn btn-danger btn-sm" href="{% url 'steach_delete' pk=Teacher.id %}">
                               <i class="fas fa-trash">
                               </i>
-                              Delete
+                              Hapus
                           </a>
                       </td>
                   </tr>

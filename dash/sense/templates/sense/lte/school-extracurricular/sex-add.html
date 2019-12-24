@@ -2,15 +2,15 @@
 {% load static %}
 {% block title %}
 {% if details.image %}
-Edit School Extracurricular
+Edit Ektrakurikuler Sekolah
 {% else %}
-Add School Extracurricular
+Tambah Ektrakurikuler Sekolah
 {% endif %}
 {% endblock %}
 
 {% block url %}
-<li class="nav-item"><a class="nav-link" href="{% url 'sex_view' %}">Extracurricular View</a></li>
-<li class="nav-item"><a class="nav-link active" href="{% url 'sex_add' %}">Extracurricular Add</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'sex_view' %}">Daftar Ekstrakurilkuler</a></li>
+<li class="nav-item"><a class="nav-link active" href="{% url 'sex_add' %}">Tambah EkstraKurikuler</a></li>
 {% endblock %}
 
 {% block content %}
@@ -22,7 +22,7 @@ Add School Extracurricular
             <div class="col-md-6">
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Data Description</h3>
+                  <h3 class="card-title">Deskripsi Ektrakurikuler Sekolah</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                       <i class="fas fa-minus"></i></button>
@@ -31,11 +31,11 @@ Add School Extracurricular
 
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="inputName">Extracurricular Name</label>
+                    <label for="inputName">Nama Ektrakurikuler</label>
                     <input type="text" name="name" id="inputName" class="form-control" value="{{details.name}}">
                   </div>
                     <div class="form-group">
-                    <label for="inputDescription">Extracurricular Description</label>
+                    <label for="inputDescription">Tentang Ektrakurikuler</label>
                     <input type="text" name="description" id="inputDescription" class="form-control" value="{{details.description}}">
                   </div>
                 </div>
@@ -43,9 +43,9 @@ Add School Extracurricular
 
             </div>
             <div class="col-md-6">
-              <div class="card card-secondary">
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Extracurricular Image</h3>
+                  <h3 class="card-title">Logo/Foto Ektrakurikuler Sekolah</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                       <i class="fas fa-minus"></i></button>
@@ -71,7 +71,7 @@ Add School Extracurricular
                          <hr>
                          <div class="form-group text-center">
                                <label for="image-source1" class="btn bg-red btn-sm" style="padding: 6px 12px;">
-                                   Upload Extracurricular Image
+                                   Pilih Logo/Foto Ektrakurikuler
                                </label>
                                <input hidden type="file" name="image" id="image-source1" onchange="previewImage1();" class="form-control"/><br>
                          </div>
@@ -85,11 +85,11 @@ Add School Extracurricular
 
           <div class="row" style="padding:2em;">
             <div class="col-12">
-              <a href="{% url 'sex_view' %}" class="btn btn-secondary">Cancel</a>
+              <a href="{% url 'sex_view' %}" class="btn btn-secondary">Batalkan</a>
                 {% if details.image %}
-                    <input type="submit" value="Save Extracurricular" class="btn btn-success">
+                    <input type="submit" value="Simpan Perubahan" class="btn btn-success">
                 {% else %}
-                    <input type="submit" value="Create new Major" class="btn btn-success">
+                    <input type="submit" value="Simpan Data" class="btn btn-success">
                 {% endif %}
             </div>
           </div>
