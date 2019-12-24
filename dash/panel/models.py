@@ -47,6 +47,8 @@ class School(models.Model):
     image = models.ImageField(upload_to='school/image', null=True, blank=True)
     province = models.ForeignKey('Province', null=True, blank=True, on_delete=models.CASCADE)
     city = models.ForeignKey('City', null=True, blank=True, on_delete=models.CASCADE)
+    lat = models.CharField(max_length=256, null=True, blank=True)
+    lng = models.CharField(max_length=256, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
