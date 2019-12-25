@@ -120,4 +120,4 @@ settings_dash_dev
 
 #media
 media/
-
+*.pyc
