@@ -18,6 +18,7 @@ class SchoolExtracurricularInline(admin.TabularInline):
 @admin.register(School, site=admin.site)
 class SchoolAdmin(admin.ModelAdmin):
     list_display = ('name', 'school_number')
+    search_fields = ('name',)
     inlines = [
         SchoolContactInline,
         SchoolMajorInline,
