@@ -17,6 +17,8 @@ class Command(BaseCommand):
         data = c.json().get('data')
         # print(dir(c.json()))
         for d in data:
-            prov = Province.objects.filter(code=d['mst_kode_wilayah']).first()
-            data = City(code=d['kode_wilayah'], name=d['nama'], province=prov)
+            mst_kode = d['mst_kode_wilayah'].strip()
+            kode = d['kode_wilayah'].strip()
+            prov = Province.objects.filter(code=mst_kode).first()
+            data = City(code=kode, name=d['nama'], province=prov)
             data.save()

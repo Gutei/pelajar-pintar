@@ -87,7 +87,7 @@
 													</span>
 													<div class="form-group label-floating">
 			                                          <label class="control-label">Nama <small>(required)</small></label>
-			                                          <input name="name" type="text" class="form-control">
+			                                          <input name="name" type="text" class="form-control" required>
 			                                        </div>
 												</div>
 		                                	</div>
@@ -99,7 +99,7 @@
 													</span>
 													<div class="form-group label-floating">
 			                                          <label class="control-label">Asal Sekolah <small>(required)</small></label>
-														<select class="form-control select2" name="from_school">
+														<select class="form-control select2" name="from_school" required>
 															{%for s in from_school%}
 															<option value="{{s.id}}">{{s.name}}</option>
 															{%endfor%}
@@ -114,7 +114,7 @@
 													</span>
 													<div class="form-group label-floating">
 													  <label class="control-label">NISN <small>(required)</small></label>
-													  <input name="nisn" type="text" class="form-control">
+													  <input name="nisn" type="text" class="form-control" required>
 													</div>
 												</div>
 		                                	</div>
@@ -125,7 +125,7 @@
 													</span>
 													<div class="form-group label-floating">
 													  <label class="control-label">No. Peserta Ujian Nasional <small>(required)</small></label>
-													  <input name="national_exam_number" type="text" class="form-control">
+													  <input name="national_exam_number" type="text" class="form-control" required>
 													</div>
 												</div>
 		                                	</div>
@@ -136,7 +136,7 @@
 													</span>
 													<div class="form-group label-floating">
 			                                          <label class="control-label">Jenis Kelamin <small>(required)</small></label>
-														<select class="form-control" name="gender">
+														<select class="form-control" name="gender" required>
 															{%for g in gender%}
 															<option value="{{g.0}}">{{g.1}}</option>
 															{%endfor%}
@@ -151,7 +151,7 @@
 													</span>
 													<div class="form-group label-floating">
 			                                          <label class="control-label">Agama <small>(required)</small></label>
-														<select class="form-control" name="faith">
+														<select class="form-control" name="faith" required>
 															{%for f in faith%}
 															<option value="{{f.0}}">{{f.1}}</option>
 															{%endfor%}
@@ -166,7 +166,7 @@
 													</span>
 													<div class="form-group label-floating">
 													  <label class="control-label">Tempat Lahir <small>(required)</small></label>
-													  <select class="form-control select2" name="birth_place">
+													  <select class="form-control select2" name="birth_place" required>
 														{%for c in city%}
 														<option value="{{c.name}}">{{c.name}}, {{c.province.name}}</option>
 														{%endfor%}
@@ -181,7 +181,7 @@
 													</span>
 													<div class="form-group label-floating">
 													  <label class="control-label">Tanggal Lahir <small>(required)</small></label>
-													  <input name="birth_date" type="text" onfocusin="(this.type='date')" onfocusout="(this.type='text')" class="form-control">
+													  <input name="birth_date" type="text" required onfocusin="(this.type='date')" onfocusout="(this.type='text')" class="form-control">
 													</div>
 												</div>
 		                                	</div>
