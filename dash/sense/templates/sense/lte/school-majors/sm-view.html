@@ -1,10 +1,10 @@
 {% extends 'sense/lte/index.html' %}
 {% load static %}
-{% block title %} School Majors {% endblock %}
+{% block title %} Jurusan Sekolah {% endblock %}
 
 {% block url %}
-<li class="nav-item"><a class="nav-link active" href="{% url 'sm_view' %}">Major View</a></li>
-<li class="nav-item"><a class="nav-link" href="{% url 'sm_add' %}">Major Add</a></li>
+<li class="nav-item"><a class="nav-link active" href="{% url 'sm_view' %}">Daftar Jurusan</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'sm_add' %}">Tambah Jurusan</a></li>
 {% endblock %}
 
 {% block content %}
@@ -34,7 +34,7 @@
                           <a class="btn btn-danger btn-sm" href="{% url 'sm_delete' pk=major.id %}">
                               <i class="fas fa-trash">
                               </i>
-                              Delete
+                              Hapus
                           </a>
                       </td>
                   </tr>
