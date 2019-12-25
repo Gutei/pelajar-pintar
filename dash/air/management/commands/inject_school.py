@@ -17,11 +17,20 @@ class Command(BaseCommand):
         kab = City.objects.all()
         jenjang = options.get('jenjang')
 
+        count_save = 0
+        print("TAKE A MOMENT TO SIT BACK, RELAX AND DRINK COFFEE ...")
         for k in kab:
-            c = requests.get('http://jendela.data.kemdikbud.go.id/api/index.php/Csekolah/detailSekolahGET?mst_kode_wilayah={}&bentuk={}'.format(k.code, jenjang[0]))
-            data = c.json().get('data')
+            c = requests.get(
+                'http://jendela.data.kemdikbud.go.id/api/index.php/Csekolah/detailSekolahGET?mst_kode_wilayah={}&bentuk={}'.format(
+                    k.code, jenjang[0]))
+            if not c.json().get('data'):
+                continue
+            else:
+                data = c.json().get('data')
 
-            for d in data:
+            for idx, d in enumerate(data, start=1):
+                count_save += 1
+
                 prov_code = d['kode_prop'].strip()
                 city_code = d['kode_kab_kota'].strip()
                 prov = Province.objects.filter(code=prov_code).first()
@@ -47,3 +56,5 @@ class Command(BaseCommand):
                              lng=d['bujur'],  # bujur
                              )
                 sch.save()
+                msg_3 = "Count Saving = {} ...".format(count_save)
+                print(msg_3, end='\r')

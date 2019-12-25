@@ -3,7 +3,6 @@ django-suit
 sorl-thumbnail
 Pillow
 django-admin-rangefilter
-django-bootstrap3
 django-ckeditor
 django-import-export
 django-jet
@@ -15,7 +14,6 @@ djangorestframework==3.9.2
 markdown
 django-filter
 django-rest-swagger
-django-crispy-forms
 qrcode
 pyqrcode
 pypng
