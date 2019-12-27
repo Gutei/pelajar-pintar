@@ -29,3 +29,4 @@ exponent_server_sdk
 gunicorn
 django_select2
 django-cors-headers
+mysqlclient

@@ -42,18 +42,22 @@ class TheacherCreate(CreateView):
 
         total_new_form = self.request.POST['new_detail_form']
         if int(total_new_form) > 0:
+            tc = TeacherContact()
             for new_field in range(0, int(total_new_form)):
-
-                tc = TeacherContact()
                 tc.teacher = self.object
                 tc.email = self.request.POST.get('email_new_{}'.format(new_field))
                 tc.phone = format_number(self.request.POST.get('phone_new_{}'.format(new_field)))
-        try:
-            with transaction.atomic():
-                self.object.save()
-                tc.save()
-        except:
-            return HttpResponseServerError()
+            try:
+                with transaction.atomic():
+                    self.object.save()
+                    tc.save()
+            except Exception as e:
+                context = {
+                    'messages': 'Harap Minimal Isi Data *NAMA, *ALAMAT, *FOTO',
+                    'tag': 'warning',
+                    'subject': 'Terjadi Kesalahan'
+                    }
+                return render(self.request, self.template_name, context)
         return super(TheacherCreate, self).form_valid(form)
 
     def get_success_url(self):
@@ -99,14 +103,19 @@ class TeacherUpdate(UpdateView):
                 tc.email = self.request.POST.get('email_new_{}'.format(new_field))
                 tc.phone = format_number(self.request.POST.get('phone_new_{}'.format(new_field)))
                 tc.save()
-        '''
-        Save teacher
-        '''
-        try:
-            with transaction.atomic():
-                self.object.save()
-        except:
-            return HttpResponseServerError()
+            '''
+            Save teacher
+            '''
+            try:
+                with transaction.atomic():
+                    self.object.save()
+            except:
+                context = {
+                    'messages': 'Harap Minimal Isi Data *NAMA, *ALAMAT, *FOTO',
+                    'tag': 'warning',
+                    'subject': 'Terjadi Kesalahan'
+                    }
+                return render(self.request, self.template_name, context)
         return super(TeacherUpdate, self).form_valid(form)
 
     def get_success_url(self):

@@ -17,8 +17,8 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Extracurricular</th>
-                  <th>Actions</th>
+                  <th>ekstrakurikuler</th>
+                  <th>Kelola</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,14 +52,23 @@
 {% block script %}
 <script>
   $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
+    $('#example1').DataTable({
       "paging": true,
-      "lengthChange": false,
-      "searching": false,
+      "lengthChange": true,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": false,
+
+      "language": {
+            "lengthMenu": "Tampilkan &nbsp&nbsp _MENU_&nbsp&nbsp data",
+            "zeroRecords": "Tidak ada data yang cocok",
+            "info": "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+            "infoEmpty": "Data Tidak Kosong",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            "searchPlaceholder": "Cari...",
+            "search": "",
+        }
     });
   });
 </script>
