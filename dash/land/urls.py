@@ -9,5 +9,9 @@ admin.site.site_header = 'Administraion Tools'
 
 urlpatterns = [
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-    url(r'^(?P<name>[^/]+)/(?P<pk>[^/]+)/', views.profile),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # url(r'^(?P<name>[^/]+)/(?P<pk>[^/]+)/', views.profile),
+    url(r'^$', views.profile, name='home'),
+    url(r'^pengajar/$', views.teacher, name='teacher'),
+    url(r'^ekstrakurikuler/$', views.extracurriculer, name='extracurr'),
+
+    ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

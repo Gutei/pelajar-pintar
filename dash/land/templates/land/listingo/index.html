@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    {% include 'land/listingo/_includes/head.html' %}
+
+    {% block extra_css %}  {% endblock %}
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+    {% include 'land/listingo/_includes/navbar.html' %}
+
+    {#{% include 'land/listingo/_includes/slide_bar.html' %}#}
+
+
+    {% block content %}{% endblock %}
+
+
+    {% include 'land/listingo/_includes/footer.html' %}
+
+    {% include 'land/listingo/_includes/script-js.html' %}
+
+    {% block script %}{% endblock %}
+
+</body>
+
+</html>

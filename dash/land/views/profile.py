@@ -8,4 +8,4 @@ def profile(request, *args, **kwargs):
         'school': school,
     }
 
-    return render(request, 'land/index.html', context)
+    return render(request, 'land/listingo/home.html', context)
