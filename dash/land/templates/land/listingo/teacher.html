@@ -1,6 +1,27 @@
 {% extends 'land/listingo/index.html' %}
 {% load static %}
+
+{% block extra_css %}
+<style type="text/css">
+.rz {
+    height: 270px;
+    display: inline;
+    position: relative;
+}
+
+.left-1 {
+    left: .5rem;
+}
+
+.right-1 {
+    right: .5rem;
+}
+
+</style>
+{% endblock %}
+
 {% block content %}
+
    <!-- team_area  -->
     <div class="team_area">
             <div class="container">
@@ -8,16 +29,17 @@
                             <div class="col-xl-12">
                                 <div class="section_title mb-40 text-center">
                                     <h3>
-                                        Our Team
+                                        Guru Pengajar
                                     </h3>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                    <div class="row">
+                            {% for t in teachers %}
                             <div class="col-xl-3 col-lg-3 col-md-6">
                                 <div class="single_team">
                                     <div class="team_thumb">
-                                        <img src="{% static 'land/img/team/1.png' %}" alt="">
+                                        <img class="rz right-1 left-1" src="{% get_media_prefix %}{{ t.photo }}" alt="">
                                         <div class="social_link">
                                                 <ul>
                                                     <li><a href="#">
@@ -36,95 +58,48 @@
                                             </div>
                                     </div>
                                     <div class="team_info text-center">
-                                        <h3>Milani Mou</h3>
-                                        <p>Business Agent</p>
+                                        <h3>{{ t.name }}</h3>
+<!--                                        <p>Business Agent</p>-->
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6">
-                                <div class="single_team">
-                                    <div class="team_thumb">
-                                        <img src="{% static 'land/img/team/2.png' %}" alt="">
-                                        <div class="social_link">
-                                                <ul>
-                                                    <li><a href="#">
-                                                            <i class="fa fa-facebook"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li><a href="#">
-                                                            <i class="fa fa-twitter"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li><a href="#">
-                                                            <i class="fa fa-instagram"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                    </div>
-                                    <div class="team_info text-center">
-                                        <h3>Halim Yoka</h3>
-                                        <p>Business Agent</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6">
-                                <div class="single_team">
-                                    <div class="team_thumb">
-                                        <img src="{% static 'land/img/team/3.png' %}" alt="">
-                                        <div class="social_link">
-                                                <ul>
-                                                    <li><a href="#">
-                                                            <i class="fa fa-facebook"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li><a href="#">
-                                                            <i class="fa fa-twitter"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li><a href="#">
-                                                            <i class="fa fa-instagram"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                    </div>
-                                    <div class="team_info text-center">
-                                        <h3>Dalim Karma</h3>
-                                        <p>Business Agent</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6">
-                                <div class="single_team">
-                                    <div class="team_thumb">
-                                        <img src="{% static 'land/img/team/4.png' %}" alt="">
-                                        <div class="social_link">
-                                                <ul>
-                                                    <li><a href="#">
-                                                            <i class="fa fa-facebook"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li><a href="#">
-                                                            <i class="fa fa-twitter"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li><a href="#">
-                                                            <i class="fa fa-instagram"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                    </div>
-                                    <div class="team_info text-center">
-                                        <h3>Micky</h3>
-                                        <p>Business Agent</p>
-                                    </div>
-                                </div>
+                            {% endfor %}
+
+                        </div>
+
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="page_nation text-center">
+                                <ul>
+                                    {% if teachers.has_previous %}
+                                    <li>
+                                        <a href="?page=1">first</a>
+                                    </li>
+                                    <li>
+                                        <a href="?page={{ teachers.previous_page_number }}"><i class="ti-angle-left"></i></a>
+                                    </li>
+                                     {% endif %}
+
+                                    <li>
+                                        <span class="current">
+                                            Page {{ teachers.number }} of {{ teachers.paginator.num_pages }}.
+                                        </span>
+                                    </li>
+
+                                    {% if teachers.has_next %}
+                                    <li>
+                                        <a href="?page={{ teachers.next_page_number }}"> <i class="ti-angle-right"></i> </a>
+                                    </li>
+                                    <li>
+                                        <a href="?page={{ teachers.paginator.num_pages }}">last</a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
                             </div>
                         </div>
+                    </div>
             </div>
-        </div>
+    </div>
     <!-- /team_area  -->
 
 {% endblock %}

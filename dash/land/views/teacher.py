@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from panel.models import School
+from panel.models import Teacher
 
-# Create your views here.
-def teacher(request, *args, **kwargs):
-    school = School.objects.all()
-    context = {
-        'school': school,
-    }
+from django.core.paginator import Paginator
 
-    return render(request, 'land/listingo/teacher.html', context)
+
+def teacher(request):
+    teacher_list = Teacher.objects.filter(school__school_number='12251515')
+    paginator = Paginator(teacher_list, 8)  # Show 25 contacts per page
+
+    page = request.GET.get('page')
+    teachers = paginator.get_page(page)
+    return render(request, 'land/listingo/teacher.html', {'teachers': teachers})
